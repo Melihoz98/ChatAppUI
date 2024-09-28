@@ -16,20 +16,17 @@ public connectedUser$ = new BehaviorSubject<string[]>([]);
 public messages: any[] = [];
 public users: string[] = [];
 
+constructor() {
+  this.start();
+  this.connection.on("ReceiveMessage", (user: string, message: string, messageTime: string)=>{
+    this.messages = [...this.messages, {user, message, messageTime} ];
+    this.messages$.next(this.messages);
+  });
 
-
-  constructor() {
-    this.start();
-    this.connection.on("RecieveMessage",(user:string, message:string, messageTime: string) =>{
-this.messages = [...this.messages, {user, message, messageTime}];
-this.message$.next(this.messages);
-    });
-
-    this.connection.on("ConnectedUser", (users: any) =>(
-     this.connectedUser$.next(users);
-    ))
-   }
-
+  this.connection.on("ConnectedUser", (users: any)=>{
+    this.connectedUsers$.next(users);
+  });
+ }
 
   public async start(){
     try{
