@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="inbox_chat">
-            <ng-container *ngFor="let user of this.chatService.connectedUsers$ | async">
+            <ng-container *ngFor="let user of this.chatService.connectedUser$ | async">
   
               <div class="chat_list">
                 <div class="chat_people">
@@ -36,7 +36,7 @@
         </div>
         <div class="mesgs">
           <div #scrollMe class="msg_history">
-            <ng-container *ngFor="let message of this.chatService.messages$ | async">
+            <ng-container *ngFor="let message of this.chatService.message$ | async">
               <div
                 [ngClass]="{'incoming_msg': message.user != loggedInUserName, 'outgoing_msg': message.user === loggedInUserName}">
                 <div *ngIf="message.user != loggedInUserName" class="incoming_msg_img">
